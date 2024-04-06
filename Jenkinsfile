@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_HUB_CREDENTIALS = credentials('docker')
-        DOCKER_IMAGE_NAME = "kashmaii/kashmai:tag1"
+        DOCKER_IMAGE_NAME = "kashmai"
         // SONAR_URL = "http://40.86.186.123:9000/"
     }
 
@@ -33,7 +33,7 @@ pipeline {
             steps {
                 // Build Docker image
                 script {
-                    docker.build(env.DOCKER_IMAGE_NAME, "-f /home/azureuser/onlinebookstore/Dockerfile")
+                    docker.build(env.DOCKER_IMAGE_NAME)
                 }
             }
         }
