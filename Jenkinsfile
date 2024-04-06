@@ -51,11 +51,14 @@ pipeline {
         // Push Image to Docker Hub stage: Push the Docker image to Docker Hub
         stage('Push Image to Docker Hub') {         
             steps {
-                sh 'docker tag env.DOCKER_IMAGE_NAME 'DOCKERHUB_USERNAME'/first:tag2'
-                sh 'docker push 'DOCKERHUB_USERNAME'/first:tag2'
-                
+                // Tag the Docker image
+                sh "docker tag $DOCKER_IMAGE_NAME $DOCKERHUB_USERNAME/first:tag2"
+        
+                // Push the Docker image to Docker Hub
+                sh "docker push $DOCKERHUB_USERNAME/first:tag2"
+        
                 echo 'Push Image Completed'       
             }           
-        }      
+        }    
     }
 }
