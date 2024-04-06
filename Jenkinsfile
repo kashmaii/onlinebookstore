@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_HUB_CREDENTIALS = credentials('docker')
-        DOCKER_IMAGE_NAME = "kashmaii/first:tag1"
+        DOCKER_IMAGE_NAME = "kashmaii/kashmai:tag1"
         // SONAR_URL = "http://40.86.186.123:9000/"
     }
 
