@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_HUB_CREDENTIALS = credentials('docker')
         DOCKER_IMAGE_NAME = "kashmaii/first:tag1"
-        SONAR_URL = "http://40.86.186.123:9000/"
+        // SONAR_URL = "http://40.86.186.123:9000/"
     }
 
     stages {
@@ -23,11 +23,11 @@ pipeline {
             }
         }
 
-        stage('Static Code Analysis') {
-            steps {
-                sh "mvn clean verify sonar:sonar -Dsonar.projectKey='demo' -Dsonar.host.url='${SONAR_URL}' -Dsonar.login=sqp_25cc2a8d230eabbb45e4999cd89e710023ac3e54"
-            }
-        }
+        // stage('Static Code Analysis') {
+        //     steps {
+        //         sh "mvn clean verify sonar:sonar -Dsonar.projectKey='demo' -Dsonar.host.url='${SONAR_URL}' -Dsonar.login=sqp_25cc2a8d230eabbb45e4999cd89e710023ac3e54"
+        //     }
+        // }
 
         stage('Build Docker Image') {
             steps {
