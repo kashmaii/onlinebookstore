@@ -51,7 +51,7 @@ pipeline {
         // Push Image to Docker Hub stage: Push the Docker image to Docker Hub
         stage('Push Image to Docker Hub') {         
             steps {                            
-                sh 'docker push kashmaii/first:$BUILD_NUMBER'                 
+                sh 'docker push dockerhubusername/dockerhubreponame:$BUILD_NUMBER'
                 echo 'Push Image Completed'       
             }           
         }      
