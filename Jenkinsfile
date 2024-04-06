@@ -42,7 +42,7 @@ pipeline {
             steps {
                 // Login to Docker Hub
                 script {
-                    docker.withRegistry('https://hub.docker.com/', env.DOCKER_HUB_CREDENTIALS) {
+                    docker.withRegistry('https://registry.hub.docker.com', env.DOCKER_HUB_CREDENTIALS) {
                         // Push the Docker image to Docker Hub
                         docker.image(env.DOCKER_IMAGE_NAME).push('latest')
                     }
