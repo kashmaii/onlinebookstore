@@ -33,7 +33,7 @@ pipeline {
             steps {
                 // Build Docker image
                 script {
-                    docker.build(env.DOCKER_IMAGE_NAME, './onlinebookstore')
+                    docker.build(env.DOCKER_IMAGE_NAME)
                 }
             }
         }
