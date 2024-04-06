@@ -41,8 +41,10 @@ pipeline {
         // Login to Docker Hub stage: Log in to Docker Hub using credentials
         stage('Login to Docker Hub') {         
             steps {                            
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                 
-                echo 'Login Completed'                
+                withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+                    sh "echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin"
+                    echo 'Login Completed'                
+                }
             }           
         }               
         
