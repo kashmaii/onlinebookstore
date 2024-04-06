@@ -2,12 +2,16 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB_CREDENTIALS = credentials('docker')
+        // Define Docker Hub credentials
+        DOCKERHUB_CREDENTIALS = credentials('docker')
+        // Define the name of the Docker image
         DOCKER_IMAGE_NAME = "kashmai"
+        // Define SonarQube URL (if applicable)
         // SONAR_URL = "http://40.86.186.123:9000/"
     }
 
     stages {
+        // Checkout stage: Check out the code from the Git repository
         stage('Checkout') {
             steps {
                 sh 'echo "Checkout stage passed"'
@@ -15,6 +19,7 @@ pipeline {
             }
         }
         
+        // Build and Test stage: Build and test the project using Maven
         stage('Build and Test') {
             steps {
                 sh 'ls -ltr'
@@ -23,12 +28,7 @@ pipeline {
             }
         }
 
-        // stage('Static Code Analysis') {
-        //     steps {
-        //         sh "mvn clean verify sonar:sonar -Dsonar.projectKey='demo' -Dsonar.host.url='${SONAR_URL}' -Dsonar.login=sqp_25cc2a8d230eabbb45e4999cd89e710023ac3e54"
-        //     }
-        // }
-
+        // Build Docker Image stage: Build the Docker image
         stage('Build Docker Image') {
             steps {
                 // Build Docker image
@@ -37,17 +37,21 @@ pipeline {
                 }
             }
         }
-
-        stage('Push to Docker Hub') {
-            steps {
-                // Login to Docker Hub
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', env.DOCKER_HUB_CREDENTIALS) {
-                        // Push the Docker image to Docker Hub
-                        docker.image(env.DOCKER_IMAGE_NAME).push('latest')
-                    }
-                }
-            }
-        }
+        
+        // Login to Docker Hub stage: Log in to Docker Hub using credentials
+        stage('Login to Docker Hub') {         
+            steps {                            
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                 
+                echo 'Login Completed'                
+            }           
+        }               
+        
+        // Push Image to Docker Hub stage: Push the Docker image to Docker Hub
+        stage('Push Image to Docker Hub') {         
+            steps {                            
+                sh 'sudo docker push dockerhubusername/dockerhubreponame:$BUILD_NUMBER'                 
+                echo 'Push Image Completed'       
+            }           
+        }      
     }
 }
