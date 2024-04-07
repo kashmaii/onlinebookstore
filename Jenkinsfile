@@ -60,7 +60,7 @@ pipeline {
                 sh "docker tag $DOCKER_IMAGE_NAME $DOCKERHUB_USERNAME/first:tag$BUILD_NUMBER"
         
                 // Push the Docker image to Docker Hub
-                sh "docker push $DOCKERHUB_USERNAME/first:tag$BUILDNUMBER"
+                sh "docker push $DOCKERHUB_USERNAME/first:tag$BUIL_DNUMBER"
         
                 echo 'Push Image Completed'       
             }           
