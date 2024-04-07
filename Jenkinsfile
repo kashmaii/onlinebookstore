@@ -5,7 +5,7 @@ pipeline {
         // Define Docker Hub credentials
         DOCKERHUB_CREDENTIALS = credentials('docker')
         // Define the name of the Docker image
-        DOCKER_IMAGE_NAME = "kashmai"
+        DOCKER_IMAGE_NAME = "myimg"
         // Define SonarQube URL (if applicable)
         // SONAR_URL = "http://40.86.186.123:9000/"
     }
@@ -57,10 +57,10 @@ pipeline {
         stage('Push Image to Docker Hub') {         
             steps {
                 // Tag the Docker image
-                sh "docker tag $DOCKER_IMAGE_NAME $DOCKERHUB_USERNAME/first:tag2"
+                sh "docker tag $DOCKER_IMAGE_NAME $DOCKERHUB_USERNAME/first:tag$BUILD_NUMBER"
         
                 // Push the Docker image to Docker Hub
-                sh "docker push $DOCKERHUB_USERNAME/first:tag2"
+                sh "docker push $DOCKERHUB_USERNAME/first:tag$BUILDNUMBER"
         
                 echo 'Push Image Completed'       
             }           
